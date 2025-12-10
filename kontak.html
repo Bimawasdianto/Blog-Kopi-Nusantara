@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Kontak</title>
+  <link rel="stylesheet" href="style.css">
+
+  <script>
+    async function loadKontak() {
+
+      
+      const savedContent = localStorage.getItem("halaman_kontak");
+
+      if (savedContent && savedContent.trim() !== "") {
+        document.getElementById("kontakContent").innerHTML = savedContent;
+        return;
+      }
+
+      try {
+        const response = await fetch("kontak.txt");
+        const text = await response.text();
+        document.getElementById("kontakContent").innerHTML = text;
+      } catch (error) {
+        document.getElementById("kontakContent").innerHTML =
+          "<p>Konten belum tersedia. Silakan edit melalui halaman Admin.</p>";
+      }
+    }
+
+    window.onload = loadKontak;
+  </script>
+</head>
+<body>
+
+<header>
+  <h1>Kontak</h1>
+</header>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="artikel.html">Artikel</a>
+  <a href="tentang.html">Tentang</a>
+  <a href="kontak.html">Kontak</a>
+  <a href="admin.html">Admin</a>
+</nav>
+
+<div class="container">
+  <div class="card">
+    <h2>Hubungi Kami</h2>
+
+    <div id="kontakContent" style="white-space: pre-line; font-size: 16px;"></div>
+
+  </div>
+</div>
+
+<div class="footer">
+  © 2025 Blog Kopi.
+</div>
+
+<script>
+const footer = document.querySelector(".footer");
+
+footer.classList.add("show");
+
+let lastScroll = window.pageYOffset;
+
+window.addEventListener("scroll", () => {
+  let currentScroll = window.pageYOffset;
+
+  if (currentScroll > lastScroll) {
+    footer.classList.remove("show");
+  } else {
+    footer.classList.add("show");
+  }
+
+  lastScroll = currentScroll;
+});
+</script>
+
+
+</body>
+</html>

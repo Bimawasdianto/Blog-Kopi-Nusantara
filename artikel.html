@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Artikel Kopi</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    #searchBox {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    /* Grid 3 kolom */
+    #gridArtikel {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      cursor: pointer;
+      transition: 0.2s;
+      padding: 15px;
+      border-radius: 10px;
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .card:hover {
+      transform: scale(1.03);
+      background: #f7f7f7;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Artikel Kopi</h1>
+</header>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="artikel.html">Artikel</a>
+  <a href="tentang.html">Tentang</a>
+  <a href="kontak.html">Kontak</a>
+  <a href="admin-login.html">Admin</a>
+</nav>
+
+<div class="container">
+
+  <!-- 🔍 Kotak Pencarian -->
+  <input type="text" id="searchBox" placeholder="Cari artikel..." onkeyup="cariArtikel()">
+
+  <!-- Grid Artikel -->
+  <div id="gridArtikel"></div>
+
+</div>
+
+<script>
+
+// MUAT ARTIKEL
+function loadArtikel() {
+  let daftar = JSON.parse(localStorage.getItem("artikels")) || [];
+
+  // Pastikan setiap artikel punya ID
+  daftar = daftar.map(a => {
+    if (!a.id) a.id = Date.now() + Math.random();
+    return a;
+  });
+
+  localStorage.setItem("artikels", JSON.stringify(daftar));
+
+  renderArtikel(daftar);
+}
+
+// RENDER ARTIKEL
+function renderArtikel(list) {
+  let out = "";
+
+  if (list.length === 0) {
+    out = "<p>Tidak ada artikel ditemukan.</p>";
+  } else {
+    list.forEach(a => {
+      out += `
+        <div class="card" onclick="bukaDetail('${a.id}')">
+          <h2>${a.judul}</h2>
+          <p><i>${a.waktu}</i></p>
+          <p style="white-space: pre-line; font-size: 14px; height: 120px; overflow: hidden;">
+            ${a.isi}
+          </p>
+        </div>
+      `;
+    });
+  }
+
+  document.getElementById("gridArtikel").innerHTML = out;
+}
+
+// BUKA DETAIL ARTIKEL
+function bukaDetail(id) {
+  window.location.href = "artikel-detail.html?id=" + id;
+}
+
+// FITUR SEARCH
+function cariArtikel() {
+  let keyword = document.getElementById("searchBox").value.toLowerCase();
+  let daftar = JSON.parse(localStorage.getItem("artikels")) || [];
+
+  let hasil = daftar.filter(a =>
+    a.judul.toLowerCase().includes(keyword) ||
+    a.isi.toLowerCase().includes(keyword)
+  );
+
+  renderArtikel(hasil);
+}
+
+loadArtikel();
+
+</script>
+
+<div class="footer">
+  © 2025 Blog Kopi.
+</div>
+
+<script>
+const footer = document.querySelector(".footer");
+
+footer.classList.add("show");
+
+let lastScroll = window.pageYOffset;
+
+window.addEventListener("scroll", () => {
+  let currentScroll = window.pageYOffset;
+
+  if (currentScroll > lastScroll) {
+    footer.classList.remove("show");
+  } else {
+    footer.classList.add("show");
+  }
+
+  lastScroll = currentScroll;
+});
+</script>
+
+</body>
+</html>

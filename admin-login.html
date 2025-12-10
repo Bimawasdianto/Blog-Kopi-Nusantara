@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Login Admin</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header><h1>Login Admin</h1></header>
+
+<div class="container">
+  <div class="card">
+    <h2>Masukkan Password</h2>
+
+    <input type="password" id="pass" class="input-login" placeholder="Password admin">
+    
+    <button class="btn-login" onclick="login()">Masuk</button>
+
+    <button class="btn-back" onclick="backHome()">⬅ Kembali ke Halaman Utama</button>
+
+    <p id="error" style="color:red;"></p>
+  </div>
+</div>
+
+<script>
+function login() {
+  let input = document.getElementById("pass").value;
+
+  if (input === "admin123") {
+    localStorage.setItem("admin", "true");
+    window.location.href = "admin.html";
+  } else {
+    document.getElementById("error").innerHTML = "Password salah!";
+  }
+}
+
+function backHome() {
+  window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>

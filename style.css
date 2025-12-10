@@ -1,0 +1,175 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: url("latte.jpeg") no-repeat center center fixed;
+    background-size: cover;
+}
+
+/* HEADER */
+header {
+    text-align: center;
+    padding: 10px;
+    background: url("biji kopi.jpg") no-repeat center/cover;
+}
+
+header h1 {
+    display: inline-block;
+    background: rgba(0, 0, 0, 0.55);
+    padding: 8px 15px;
+    border-radius: 8px;
+    color: #fff;
+}
+
+header p {
+    display: block;
+    width: fit-content; 
+    margin: 10px auto 0 auto;
+    background: rgba(0, 0, 0, 0.55);
+    padding: 8px 15px;
+    border-radius: 8px;
+    color: #fff;
+}
+
+/* NAVIGASI */
+nav {
+  background: #4a2e1f;
+  padding: 15px;
+  text-align: center;
+}
+
+nav a {
+  color: white;
+  margin: 0 20px;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 8px 15px; 
+  border-radius: 5px; 
+  transition: 0.3s; 
+}
+
+nav a:hover {
+  background: white;     
+  color: #000000;        
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3); 
+}
+
+/* CARD */
+.container {
+    width: 90%;
+    margin: 30px auto;
+}
+
+.card {
+    background: rgba(255,255,255,0.85);
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    margin-bottom: 10px;
+}
+
+/* TOMBOL LOGIN */
+.btn-login {
+    background: #A0522D;
+    color: white;
+    padding: 10px;
+    width: 50%;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.btn-login:hover {
+    background: #8B4513;
+}
+
+/* TOMBOL KEMBALI */
+.btn-back {
+    background: #8B4513;
+    color: #fff;
+    padding: 10px;
+    width: 50%;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.btn-back:hover {
+    background: #A0522D;
+}
+
+/* --- STYLE EDIT ADMIN (HOME, TENTANG, KONTAK) --- */
+
+.edit-container {
+    width: 90%;
+    margin: 20px auto;
+}
+
+textarea.edit-box {
+    width: 100%;
+    height: 250px;
+    padding: 12px;
+    border-radius: 8px;
+    border: 2px solid #3b2a1a;
+    font-size: 16px;
+    resize: vertical;
+    background: rgba(255,255,255,0.9);
+}
+
+.btn-save {
+    background: #3b2a1a;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    margin-top: 15px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn-save:hover {
+    background: #5a3b25;
+}
+
+.edit-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    background: rgba(0,0,0,0.4);
+    padding: 10px;
+    color: #fff;
+    border-radius: 6px;
+}
+
+.input-login {
+    width: 90%;
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 12px;
+    border: 1px solid #714A2E;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.9);
+}
+
+.footer {
+  width: 100%;
+  text-align: center;
+  padding: 15px 0;
+  font-size: 18px;
+  background: rgb(34, 60, 39); 
+  color: white;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  border-top: 2px solid rgba(255,255,255,0.3);
+  transition: transform 0.35s ease-in-out;
+  transform: translateY(100%); 
+  z-index: 9999;
+}
+
+.footer.show {
+  transform: translateY(0);
+}
+

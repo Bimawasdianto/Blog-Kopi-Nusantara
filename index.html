@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Kopi Nusantara - Home</title>
+    <link rel="stylesheet" href="style.css">
+
+    <script>
+        async function loadHomeContent() {
+
+            const savedContent = localStorage.getItem("halaman_home");
+
+            if (savedContent && savedContent.trim() !== "") {
+                document.getElementById("homeContent").innerHTML = savedContent;
+                return;
+            }
+
+            try {
+                const response = await fetch("home.txt");
+                const text = await response.text();
+                document.getElementById("homeContent").innerHTML = text;
+            } catch (error) {
+                document.getElementById("homeContent").innerHTML =
+                    "<p>Konten belum tersedia. Silakan isi melalui halaman Admin.</p>";
+            }
+        }
+
+        window.onload = loadHomeContent;
+    </script>
+</head>
+
+<body>
+
+    <header>
+        <h1>Kopi Nusantara</h1>
+        <p>Mengenal Dunia Kopi dari Sabang sampai Merauke</p>
+    </header>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="artikel.html">Artikel</a>
+        <a href="tentang.html">Tentang</a>
+        <a href="kontak.html">Kontak</a>
+        <a href="admin.html">Admin</a>
+    </nav>
+
+    <div class="container">
+        <div class="card">
+            <h2>Selamat Datang di Kopi Nusantara</h2>
+
+            <div id="homeContent" style="white-space: pre-line; font-size: 16px;"></div>
+
+        </div>
+    </div>
+
+<div class="footer">
+  © 2025 Blog Kopi.
+</div>
+
+<script>
+const footer = document.querySelector(".footer");
+
+footer.classList.add("show");
+
+let lastScroll = window.pageYOffset;
+
+window.addEventListener("scroll", () => {
+  let currentScroll = window.pageYOffset;
+
+  if (currentScroll > lastScroll) {
+    footer.classList.remove("show");
+  } else {
+    footer.classList.add("show");
+  }
+  lastScroll = currentScroll;
+});
+</script>
+
+</body>
+</html>
+

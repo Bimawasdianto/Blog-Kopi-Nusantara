@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Detail Artikel</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* Card transparan */
+    .detail-card {
+      background: rgba(255, 255, 255, 0.88);
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.25);
+      margin: 30px auto;
+      width: 80%;
+    }
+
+    /* Tombol kembali */
+    .btn-kembali {
+      display: inline-block;
+      padding: 10px 20px;
+      background: #ffffffaa;
+      border: 2px solid #444;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: 0.2s;
+    }
+
+    .btn-kembali:hover {
+      background: #fff;
+      transform: scale(1.05);
+      box-shadow: 0 0 8px rgba(0,0,0,0.3);
+    }
+
+    #isi {
+      white-space: pre-line;
+      font-size: 17px;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Detail Artikel</h1>
+</header>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="artikel.html">Artikel</a>
+  <a href="tentang.html">Tentang</a>
+  <a href="kontak.html">Kontak</a>
+  <a href="admin-login.html">Admin</a>
+</nav>
+
+<div class="detail-card">
+  <h2 id="judul"></h2>
+  <p id="waktu" style="margin-bottom: 15px;"></p>
+
+  <p id="isi"></p>
+
+  <button class="btn-kembali" onclick="history.back()">⟵ Kembali</button>
+</div>
+
+<script>
+  // Ambil ID dari URL
+  const url = new URLSearchParams(window.location.search);
+  const idArtikel = parseInt(url.get("id")); // PENTING: ubah jadi integer
+
+  // Ambil artikel dari localStorage
+  let daftar = JSON.parse(localStorage.getItem("artikels")) || [];
+
+  console.log("ID dari URL:", idArtikel);
+  console.log("Daftar artikel:", daftar);
+
+  // Cari artikel berdasarkan ID
+  let artikel = daftar.find(a => parseInt(a.id) === idArtikel);
+
+  if (artikel) {
+    document.getElementById("judul").textContent = artikel.judul ?? "(tanpa judul)";
+    document.getElementById("waktu").textContent = artikel.waktu ?? "";
+    document.getElementById("isi").textContent = artikel.isi ?? "";
+  } else {
+    document.getElementById("judul").textContent = "Artikel tidak ditemukan";
+    document.getElementById("isi").textContent = "ID tidak cocok atau datanya belum tersimpan.";
+
+    console.warn("Artikel tidak ditemukan. ID:", idArtikel);
+  }
+
+
+</script>
+
+</body>
+</html>

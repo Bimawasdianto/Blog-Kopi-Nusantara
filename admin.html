@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Panel</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header><h1>Admin Panel</h1></header>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="admin.html">Admin</a>
+  <a href="admin-login.html" onclick="logout()">Logout</a>
+</nav>
+
+<div class="container">
+
+  <!-- BAGIAN EDIT HOME -->
+  <div class="card">
+    <h2>Edit Halaman Home</h2>
+    <textarea id="editHome" placeholder="Isi halaman Home..."></textarea>
+    <button class="btn-login" onclick="simpanHome()">Simpan Home</button>
+  </div>
+
+  <!-- BAGIAN EDIT TENTANG -->
+  <div class="card">
+    <h2>Edit Halaman Tentang</h2>
+    <textarea id="editTentang" placeholder="Isi halaman Tentang..."></textarea>
+    <button class="btn-login" onclick="simpanTentang()">Simpan Tentang</button>
+  </div>
+
+  <!-- BAGIAN EDIT KONTAK -->
+  <div class="card">
+    <h2>Edit Halaman Kontak</h2>
+    <textarea id="editKontak" placeholder="Isi halaman Kontak..."></textarea>
+    <button class="btn-login" onclick="simpanKontak()">Simpan Kontak</button>
+  </div>
+
+  <!-- BAGIAN ARTIKEL -->
+  <div class="card">
+    <h2>Buat Artikel Baru</h2>
+
+    <label>Judul Artikel</label>
+    <input type="text" id="judul" class="input-login" placeholder="Judul artikel">
+
+    <label>Isi Artikel</label>
+    <textarea id="isi"></textarea>
+
+    <button class="btn-login" onclick="simpan()">Simpan Artikel</button>
+  </div>
+
+  <div class="card">
+    <h2>Daftar Artikel</h2>
+    <div id="listArtikel"></div>
+  </div>
+</div>
+
+<script>
+// CEK LOGIN
+if (localStorage.getItem("admin") !== "true") {
+  alert("Anda harus login terlebih dahulu!");
+  window.location.href = "admin-login.html";
+}
+
+// LOAD DATA HOME
+document.getElementById("editHome").value =
+  localStorage.getItem("halaman_home") || "";
+
+// LOAD DATA TENTANG
+document.getElementById("editTentang").value =
+  localStorage.getItem("halaman_tentang") || "";
+
+// LOAD DATA KONTAK
+document.getElementById("editKontak").value =
+  localStorage.getItem("halaman_kontak") || "";
+
+// SIMPAN HOME
+function simpanHome() {
+  let isi = document.getElementById("editHome").value;
+  localStorage.setItem("halaman_home", isi);
+  alert("Halaman Home berhasil disimpan!");
+}
+
+// SIMPAN TENTANG
+function simpanTentang() {
+  let isi = document.getElementById("editTentang").value;
+  localStorage.setItem("halaman_tentang", isi);
+  alert("Halaman Tentang berhasil disimpan!");
+}
+
+// SIMPAN KONTAK
+function simpanKontak() {
+  let isi = document.getElementById("editKontak").value;
+  localStorage.setItem("halaman_kontak", isi);
+  alert("Halaman Kontak berhasil disimpan!");
+}
+
+// SIMPAN ARTIKEL
+function simpan() {
+  let judul = document.getElementById("judul").value;
+  let isi = document.getElementById("isi").value;
+
+  if (judul === "" || isi === "") {
+    alert("Judul dan isi tidak boleh kosong!");
+    return;
+  }
+
+  let waktu = new Date().toLocaleString("id-ID");
+
+  let artikel = {
+    judul: judul,
+    isi: isi,
+    waktu: waktu
+  };
+
+  let daftar = JSON.parse(localStorage.getItem("artikels")) || [];
+  daftar.push(artikel);
+
+  localStorage.setItem("artikels", JSON.stringify(daftar));
+
+  alert("Artikel berhasil disimpan!");
+  window.location.reload();
+}
+
+// TAMPIL ARTIKEL
+function tampilkanArtikel() {
+  let daftar = JSON.parse(localStorage.getItem("artikels")) || [];
+  let out = "";
+
+  daftar.forEach((a, index) => {
+    out += `
+      <div class="card">
+        <h3>${a.judul}</h3>
+        <p>${a.waktu}</p>
+        <button class="btn-back" onclick="hapus(${index})">Hapus</button>
+      </div>
+    `;
+  });
+
+  document.getElementById("listArtikel").innerHTML = out;
+}
+
+tampilkanArtikel();
+
+// HAPUS ARTIKEL
+function hapus(i) {
+  let daftar = JSON.parse(localStorage.getItem("artikels"));
+  daftar.splice(i, 1);
+  localStorage.setItem("artikels", JSON.stringify(daftar));
+  window.location.reload();
+}
+
+// LOGOUT
+function logout() {
+  localStorage.removeItem("admin");
+}
+</script>
+
+<div class="footer">
+  © 2025 Blog Kopi.
+</div>
+
+</body>
+</html>
